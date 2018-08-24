@@ -16,7 +16,7 @@ class Decoder {
 					$res->push((object)[
 						'nameid' => $data->VariableId,
 						'name' => $data->Variable,
-						'id' => $data->ValueId,
+						'valueid' => $data->ValueId,
 						'value' => $data->Value,
 					]);
 				}
