@@ -5,28 +5,26 @@ use GuzzleHttp\Client;
 class Decoder {
 	public static function decode($vin){
 		$client     = new Client();
-		$res = collect();
-		$response 	= $client->request('GET', 'https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVin/'.$vin.'?format=json');
-
+		$response 	= $client->request('GET', 'https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/'.$vin.'?format=json');
 		$result		= json_decode($response->getBody());
-
-		if(isset($result->Results)){
-			foreach($result->Results AS $key => $data){
-				if($data->Value){
-					$res->push((object)[
-						'nameid' => $data->VariableId,
-						'name' => $data->Variable,
-						'valueid' => $data->ValueId,
-						'value' => $data->Value,
-					]);
-				}
-			}
-		}
-
-		return $res;
+		return collect($result->Results);
 	}
 
-	public static function models($make){
+	public static function decode_batch($vins){
+		if(!is_array($vins)) $vins = [$vins];
+
+		$post_data = [
+			'DATA' => implode('; ', $vins),
+			'format' => 'JSON',
+		];
+
+		$client = new Client();
+		$response 	= $client->post('https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesbatch', ['form_params' => $post_data]);
+		$result		= json_decode($response->getBody());
+		return collect($result->Results);
+	}
+
+	/*public static function models($make){
 		$client     = new Client();
 		$res = collect();
 		$response 	= $client->request('GET', 'https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/'.$make.'?format=json');
@@ -66,5 +64,5 @@ class Decoder {
 			}
 		}
 		return $res;
-	}
+	}*/
 }
