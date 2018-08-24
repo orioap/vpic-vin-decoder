@@ -22,6 +22,7 @@ class Decoder {
 				}
 			}
 		}
+
 		return $res;
 	}
 
