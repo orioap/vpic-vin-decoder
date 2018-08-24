@@ -3,15 +3,11 @@
     "description": "VIN Decoder for use with vPIC",
     "require": {
     	"laravel/framework": "5.*",
+    	"illuminate/support": "5.*",
         "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
-    	"laravel/laravel": "5.*",
-    	"fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
-        "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*"
+        "phpunit/phpunit": "~5.0"
     },
     "authors": [
         {
