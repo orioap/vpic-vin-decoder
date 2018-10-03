@@ -19,7 +19,7 @@ class Decoder {
 		];
 
 		$client = new Client();
-		$response 	= $client->post('https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesbatch', ['form_params' => $post_data]);
+		$response 	= $client->post('https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvaluesbatch', ['body' => $post_data]);
 		$result		= json_decode($response->getBody());
 		return collect($result->Results);
 	}
